@@ -1,0 +1,11 @@
+{
+  "BlogSystem": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "Users",
+    "password": "",
+    "name": "BlogSystem",
+    "user": "",
+    "connector": "mongodb"
+  }
+}
