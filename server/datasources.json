@@ -2,7 +2,7 @@
   "BlogSystem": {
     "host": "localhost",
     "port": 27017,
-    "database": "Users",
+    "database": "BlogSystem",
     "password": "",
     "name": "BlogSystem",
     "user": "",
