@@ -9,11 +9,27 @@ module.exports = function(server) {
   });
 
   router.get("/post", function postsPage(req, res) {
-    res.sendFile(path.join(__dirname, "../../client/html/post.html"));
+    res.sendFile(path.join(__dirname, "../../client/html/login.html"));
   });
 
   router.get("/register", function postsPage(req, res) {
     res.sendFile(path.join(__dirname, "../../client/html/register.html"));
+  });
+
+  router.get("/login", function postsPage(req, res) {
+    res.sendFile(path.join(__dirname, "../../client/html/login.html"));
+  });
+
+  router.post("/login", function postsPage(req, res) {
+    User.login(req.body, "user", function(error, token) {
+      if(error) {
+        res.end(error);
+        return;
+      }
+
+      console.log(token);
+      res.end();
+    })
   });
 
   router.post("/register",
@@ -22,6 +38,7 @@ module.exports = function(server) {
         username: req.body.userName,
         email: req.body.userEmail,
         password: req.body.userPassword,
+        //TODO: Delete the toString method, its inteded for testing
         toString: function () {
           return this.userName + "|" + this.email + "|" + this.password;
         }
@@ -30,13 +47,13 @@ module.exports = function(server) {
       User.create(newUser, function(error, user) {
         if(error) {
           console.log(error);
+          res.end(JSON.stringify(error));
         }
         else {
-          console.log("Created: " + user);
+          console.log("Created: " + newUser);
+          res.redirect("/");
         }
       });
-
-      res.redirect("/");
     });
 
   server.use(router);
