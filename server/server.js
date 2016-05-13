@@ -7,6 +7,8 @@ var bodyParser = require("body-parser");
 app.use(loopback.static(path.join(__dirname, "../client/css")));
 app.use(loopback.static(path.join(__dirname, "../client/scripts")));
 app.use(loopback.static(path.join(__dirname, "../client/img")));
+app.use(loopback.static(path.join(__dirname, "../client/libs")));
+app.use(loopback.static(path.join(__dirname, "../client/html")));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

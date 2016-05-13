@@ -1,33 +1,23 @@
 module.exports = function(server) {
-  // Install a `/` route that returns server status
   var router = server.loopback.Router();
   var path = require("path");
   var User = server.loopback.User;
 
-  router.get("/", function homePage(req, res) {
-    res.sendFile(path.join(__dirname, "../../client/html/index.html"));
-  });
-
-  router.get("/post", function postsPage(req, res) {
-    res.sendFile(path.join(__dirname, "../../client/html/login.html"));
-  });
-
-  router.get("/register", function postsPage(req, res) {
-    res.sendFile(path.join(__dirname, "../../client/html/register.html"));
-  });
-
-  router.get("/login", function postsPage(req, res) {
-    res.sendFile(path.join(__dirname, "../../client/html/login.html"));
+  router.get("/*", function homePage(req, res) {
+    res.sendFile(path.join(__dirname + "../../../client/html/home.html"));
   });
 
   router.post("/login", function postsPage(req, res) {
     User.login(req.body, "user", function(error, token) {
       if(error) {
-        res.end(error);
+        console.log("ERROR");
+        res.status(error.statusCode);
+        res.end(JSON.stringify(error));
         return;
       }
 
-      console.log(token);
+      console.log(req.body.username + " Logged");
+      res.send(token);
       res.end();
     })
   });
